@@ -1,11 +1,11 @@
 <h3>Make a New Song!</h3>
 <form action="/songs" method="POST">
     
-    <label for="Artist Name">Artist Name</label>
-    <input type="text" name="Artist Name">
+    <label for="artist_name">Artist Name</label>
+    <input type="text" name="artist[name]" id="Artist Name">
 
     <label for="Name">Song Name</label>
-    <input type="text" name="Name">
+    <input type="text" name="song[name]" id="Name">
    
     <label> genres </label>
     <% @genres.each do |genre| %>

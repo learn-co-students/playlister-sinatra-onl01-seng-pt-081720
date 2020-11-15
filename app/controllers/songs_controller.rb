@@ -9,40 +9,54 @@ class SongsController < Sinatra::Base
     end
     
     get "/songs/new" do
+        
         @genres = Genre.all
         erb :"songs/new"
+    end
+
+    
+
+    post "/songs" do
+        
+        @song = Song.create(params[:song])
+        artist = nil
+        
+        
+        if Artist.find_by(name: params[:artist][:name])
+            artist = Artist.find_by(name: params[:artist][:name])
+            
+        else
+            artist = Artist.create(name: params[:artist][:name])
+           
+        end
+        
+        @song.genre_ids = params[:genres]
+        # genres = params[:genres]
+        # genres.each do |genre|
+        #     @song.genres << genre
+        # end
+         
+        @song.artist = artist
+        
+        slug = @song.slug
+       
+          
+        #redirect("/songs/#{@song.slug}")
+        redirect to :"/songs/#{slug}"
+
+
     end
 
     get "/songs/:slug" do
         @song = Song.find_by_slug(params[:slug])
         erb :"songs/show"
     end
-
-    post "/songs" do
-        @song = Song.create(name: params[:Name])
-        artist = nil
-
-        if Artist.find_by(name: params["Artist Name"])
-            artist = Artist.find_by(name: params["Artist Name"])
-        else
-            artist = Artist.create(name: params["Artist Name"])
-            
-        end
-        
-        genres = params[:genres]
-        genres.each do |genre|
-            @song.genre_ids << genre
-        end
-        
-        @song.artist = artist
-        
-        redirect to :"/songs/#{@song.slug}"
-
-    end
-
     
 
 end
+
+
+
 
 #song name params[:song][:name]
 #artist name params[:artist][:name]

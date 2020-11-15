@@ -17,7 +17,7 @@ class SongsController < Sinatra::Base
     
 
     post "/songs" do
-        
+        binding.pry
         @song = Song.create(params[:song])
         artist = nil
         

@@ -29,11 +29,13 @@ class SongsController < Sinatra::Base
             
         end
 
-        # genres = params[:genres]
-        # genres.each do |genre|
-        song.genre_ids = params[:genres]
-        song.artist = artist
-        binding.pry
+        genres = params[:genres]
+        genres.each do |genre|
+            song.genre_ids << genre.id
+        end
+        # song.genre_ids = params[:genres]
+        # song.artist = artist
+        # binding.pry
         erb :"/songs/#{song.slug}"
 
     end

@@ -36,7 +36,7 @@ class SongsController < Sinatra::Base
         # song.genre_ids = params[:genres]
         song.artist = artist
        
-        erb :"/songs/that-one-with-the-guitar"
+        erb :"/songs/#{song.slug}"
 
     end
 

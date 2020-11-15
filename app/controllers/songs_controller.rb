@@ -19,7 +19,7 @@ class SongsController < Sinatra::Base
     end
 
     post "/songs" do
-        song = Song.create(name: params[:Name])
+        @song = Song.create(name: params[:Name])
         artist = nil
 
         if Artist.find_by(name: params["Artist Name"])
@@ -31,13 +31,12 @@ class SongsController < Sinatra::Base
         
         genres = params[:genres]
         genres.each do |genre|
-            song.genre_ids << genre
+            @song.genre_ids << genre
         end
-        # song.genre_ids = params[:genres]
-        song.artist = artist
-        song.save
-        song
-        redirect to :"/songs/#{song.slug}"
+        
+        @song.artist = artist
+        
+        redirect to :"/songs/#{@song.slug}"
 
     end
 

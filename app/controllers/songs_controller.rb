@@ -52,6 +52,36 @@ class SongsController < Sinatra::Base
         erb :"songs/show"
     end
     
+    get "/songs/:slug/edit" do
+        @genres = Genre.all
+        @song = Song.find_by_slug(params[:slug])
+        
+        erb :"songs/edit"
+    end
+
+    patch "/songs/:slug" do
+        
+        @song = Song.find_by_slug(params[:slug])
+        
+        song.name = params[:song][:name]
+        
+        if Artist.find_by(name: params[:artist][:name])
+            @artist = Artist.find_by(name: params[:artist][:name]) 
+        else
+            @artist = Artist.create(name: params[:artist][:name])
+        end
+        genres = params[:genres]
+        
+        @song.artist = @artist
+
+        genres.each do |g|
+            @song.genre_ids = g
+        end
+        
+        @song.save
+        
+        erb :"songs/show"
+    end
 
 end
 

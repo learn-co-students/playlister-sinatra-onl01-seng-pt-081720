@@ -1,0 +1,19 @@
+<h3><%= @message %></h3>
+<h1>Song</h1>
+<h2><%= @song.name %></h2><br>
+
+<h2>Artist</h2>
+<% if !!@song.artist %>
+    <h3><a href="/artists/<%= @song.artist.slug %>"><%= @song.artist.name %></a></h3>
+<% end %>
+<br>
+
+<h2>Genres</h2>
+<% if !@song.genres.empty? %>
+    <% @song.genres.each do |genre| %>
+        <h3><a href="/genres/<%= genre.slug %>"><%= genre.name %></a></h3>
+    <% end %>
+<% end %>
+<br>
+<br>
+<h3><a href="/songs/<%= @song.slug %>/edit">Edit Song</a></h3>
